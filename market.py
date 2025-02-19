@@ -11,6 +11,32 @@ logger = logging.getLogger(__file__)
 
 
 def get_product_list(page, campaign_id, access_token):
+    """Получить список товаров из Яндекс Маркета.
+
+    Args:
+        page (int): Номер страницы.
+        campaign_id (str): ID логистического метода (FBS, DBS).
+        access_token (str): Токен для работы с API Яндекс Маркет.
+
+    Returns:
+        dict: Возвращает словарь со товарами.
+
+    Example:
+        Пример, с корректным использованием:
+        >>> get_product_list(5, 'campaign_id', 'access_token'):
+        "result": {}
+        Пример, с некорректным использованием:
+        >>> get_product_list(5, 'campaign_id', 'access_token'):
+        {
+            "status": "OK",
+            "errors": [
+                {
+                    "code": "string",
+                    "message": "string"
+                }
+            ]
+        }
+    """
     endpoint_url = "https://api.partner.market.yandex.ru/"
     headers = {
         "Content-Type": "application/json",
@@ -30,6 +56,34 @@ def get_product_list(page, campaign_id, access_token):
 
 
 def update_stocks(stocks, campaign_id, access_token):
+    """Обновить остатки.
+
+    Args:
+        stocks (list): Остатки выгруженные из сайта Casio.
+        campaign_id (str): ID логистического метода (FBS, DBS).
+        access_token (str): Токен для работы с API Яндекс Маркет.
+
+    Returns:
+        Возвращает статус ответа в JSON.
+
+    Example:
+        Пример, с корректным использованием:
+        >>> update_stocks(stocks, 'campaign_id', 'access_token'):
+        {
+        "status": "OK"
+        }
+        Пример, с некорректным использованием:
+        >>> update_stocks(stocks, 'campaign_id', 'access_token'):
+        {
+            "status": "OK",
+            "errors": [
+                {
+                    "code": "string",
+                    "message": "string"
+                }
+            ]
+        }
+    """
     endpoint_url = "https://api.partner.market.yandex.ru/"
     headers = {
         "Content-Type": "application/json",
@@ -46,6 +100,34 @@ def update_stocks(stocks, campaign_id, access_token):
 
 
 def update_price(prices, campaign_id, access_token):
+    """Обновить цену.
+
+    Args:
+        prices (list): Список с ценой из остатков.
+        campaign_id (str): ID логистического метода (FBS, DBS).
+        access_token (str): Токен для работы с API Яндекс Маркет.
+
+    Returns:
+        Возвращает статус ответа в JSON.
+
+    Example:
+        Пример, с корректным использованием:
+        >>> update_price(prices, 'campaign_id', 'access_token'):
+        {
+        "status": "OK"
+        }
+        Пример, с некорректным использованием:
+        >>> update_price(prices, 'campaign_id', 'access_token'):
+        {
+            "status": "OK",
+            "errors": [
+                {
+                    "code": "string",
+                    "message": "string"
+                }
+            ]
+        }
+    """
     endpoint_url = "https://api.partner.market.yandex.ru/"
     headers = {
         "Content-Type": "application/json",
@@ -62,7 +144,26 @@ def update_price(prices, campaign_id, access_token):
 
 
 def get_offer_ids(campaign_id, market_token):
-    """Получить артикулы товаров Яндекс маркета"""
+    """Получить артикулы товаров Яндекс маркета.
+
+    Args:
+        campaign_id (str): ID логистического метода (FBS, DBS).
+        market_token (str): Токен для работы с API Яндекс Маркет.
+
+    Returns:
+        list: Возвращает список с артикулами товаров.
+
+    Example:
+        Пример, с корректным использованием:
+        >>> get_offer_ids('campaign_id', 'market_token'):
+        ['offer_ids']
+        Пример, с некорректным использованием:
+        >>> get_offer_ids('campaign_id', 'market_token'):
+        {
+            "status": "OK",
+            "errors": []
+        }
+    """
     page = ""
     product_list = []
     while True:
@@ -78,6 +179,36 @@ def get_offer_ids(campaign_id, market_token):
 
 
 def create_stocks(watch_remnants, offer_ids, warehouse_id):
+    """Создает список с остатками товаров.
+
+    Args:
+        watch_remnants (list): Остатки выгруженные из сайта Casio.
+        offer_ids (list): Список с артикулами товаров.
+        warehouse_id (str): ID склада (FBS, DBS)
+
+    Returns:
+        list: Возвращает список с остаткамими товаров.
+
+    Example:
+        Пример, с корректным использованием:
+        >>> create_stocks(watch_remnants, offer_ids):
+        [
+            {
+                "sku": 'offer_id',
+                "warehouseId": 'warehouse_id',
+                "items": [
+                    {
+                        "count": 0,
+                        "type": "FIT",
+                        "updatedAt": date,
+                    }
+                ],
+            }
+        ]
+        Пример, с некорректным использованием:
+        >>> create_stocks(watch_remnants, offer_ids):
+        Вызывает ошибку, если один из параметров некорректен.
+    """
     # Уберем то, что не загружено в market
     stocks = list()
     date = str(datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z")
@@ -123,6 +254,24 @@ def create_stocks(watch_remnants, offer_ids, warehouse_id):
 
 
 def create_prices(watch_remnants, offer_ids):
+    """Формирует список цен для предложений, имеющихся в `offer_ids`.
+
+    Args:
+        watch_remnants (list): Список остатков товаров.
+        offer_ids (list): Список с артикулами.
+
+    Returns:
+        list[dict]: Возвращает список словарей с ценами.
+
+    Example:
+        Пример, с корректным использованием:
+        >>> create_prices(watch_remnants, offer_ids):
+        [{'id': '123', 'price': {'value': 1000, 'currencyId': 'RUR'}}]
+        Пример, с некорректным использованием:
+        >>> create_prices(watch_remnants, offer_ids):
+        Traceback (most recent call last):
+        Ошибка из-за некорректного типа данных
+    """
     prices = []
     for watch in watch_remnants:
         if str(watch.get("Код")) in offer_ids:
@@ -143,6 +292,7 @@ def create_prices(watch_remnants, offer_ids):
 
 
 async def upload_prices(watch_remnants, campaign_id, market_token):
+    """Загружает обновления цен частями по 500 для указанного метода (FBS, DBS)."""
     offer_ids = get_offer_ids(campaign_id, market_token)
     prices = create_prices(watch_remnants, offer_ids)
     for some_prices in list(divide(prices, 500)):
@@ -151,6 +301,7 @@ async def upload_prices(watch_remnants, campaign_id, market_token):
 
 
 async def upload_stocks(watch_remnants, campaign_id, market_token, warehouse_id):
+    """Загружает обновления остатков частями по 2000 и возвращает ненулевые остатки."""
     offer_ids = get_offer_ids(campaign_id, market_token)
     stocks = create_stocks(watch_remnants, offer_ids, warehouse_id)
     for some_stock in list(divide(stocks, 2000)):
