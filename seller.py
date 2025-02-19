@@ -193,7 +193,7 @@ def download_stock():
 
 def create_stocks(watch_remnants, offer_ids):
     """
-    Обновляет список с остатками товаров.
+    Создает список с остатками товаров.
 
     Args:
         watch_remnants (list): Остатки выгруженные из сайта Casio.
@@ -231,7 +231,7 @@ def create_stocks(watch_remnants, offer_ids):
 
 
 def create_prices(watch_remnants, offer_ids):
-    """Создает список с новой и старой ценой.
+    """Создает список с ценой на товары.
 
     Args:
         watch_remnants (list): Остатки выгруженные из сайта Casio.
