@@ -25,10 +25,10 @@ def get_product_list(last_id, client_id, seller_token):
     Example:
         Пример, с корректным использованием:
         >>> get_product_list('', 'client_id', 'seller_token'):
-        [{'offer_id': offer_id}]
+        "result": []
         Пример, с некорректным использованием:
         >>> get_product_list('', 'invalid_client_id', 'invalid_seller_token'):
-        Произошла ошибка при обращении к API.
+        "code": 0
     """
     url = "https://api-seller.ozon.ru/v2/product/list"
     headers = {
@@ -60,11 +60,11 @@ def get_offer_ids(client_id, seller_token):
 
     Example:
         Пример, с корректным использованием:
-        >>> get_product_list('client_id', 'seller_token'):
+        >>> get_offer_ids('client_id', 'seller_token'):
         ["offer_ids"]
         Пример, с некорректным использованием:
-        >>> get_product_list('invalid_client_id', 'invalid_seller_token'):
-        Ошибка при обращении к API.
+        >>> get_offer_ids('invalid_client_id', 'invalid_seller_token'):
+        "code": 0
     """
     last_id = ""
     product_list = []
@@ -102,7 +102,7 @@ def update_price(prices: list, client_id, seller_token):
             'invalid_client_id',
             'invalid_seller_token'
             ):
-        Ошибка при обращении к API.
+        "code": 0
     """
     url = "https://api-seller.ozon.ru/v1/product/import/prices"
     headers = {
@@ -128,15 +128,15 @@ def update_stocks(stocks: list, client_id, seller_token):
 
     Example:
         Пример, с корректным использованием:
-        >>> get_product_list(stocks, 'client_id', 'seller_token'):
+        >>> update_stocks(stocks, 'client_id', 'seller_token'):
         {"stocks": stocks}
         Пример, с некорректным использованием:
-        >>> get_product_list(
+        >>> update_stocks(
             stocks,
             'invalid_client_id',
             'invalid_seller_token'
             ):
-        Ошибка при обращении к API.
+        "code": 0
     """
     url = "https://api-seller.ozon.ru/v1/product/import/stocks"
     headers = {
@@ -192,21 +192,21 @@ def download_stock():
 
 
 def create_stocks(watch_remnants, offer_ids):
-    """
-    Создает список с остатками товаров.
+    """Создает список с остатками товаров.
 
     Args:
         watch_remnants (list): Остатки выгруженные из сайта Casio.
         offer_ids (list): Список с артикулами товаров из Ozon.
 
     Returns:
-        list: Возвращает обновленный список с остатками товаров,
-        с двух площадок.
+        list: Возвращает список с остаткамими товаров.
 
     Example:
         Пример, с корректным использованием:
         >>> create_stocks(watch_remnants, offer_ids):
-        [{"offer_id": "Код", "stock": stock}]
+        [
+        {"offer_id": "Код", "stock": stock}
+        ]
         Пример, с некорректным использованием:
         >>> create_stocks(watch_remnants, offer_ids):
         Вызывает ошибку, если watch_remnants нет в offer_ids.
@@ -238,7 +238,7 @@ def create_prices(watch_remnants, offer_ids):
         offer_ids (list): Список с артикулами товаров из Ozon.
 
     Returns:
-        list: Вернет список с ценами, в виде словарей.
+        list: Возвращает список с ценами, в виде словарей.
 
     Example:
         Пример, с корректным использованием:
