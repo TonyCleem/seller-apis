@@ -56,7 +56,7 @@ def update_stocks(stocks, campaign_id, access_token):
         access_token (str): Токен для работы с API Яндекс Маркет.
 
     Returns:
-        dict: Возвращает статус ответа
+        dict: Возвращает статус ответа обновления остатков.
 
     Example:
         Пример, с корректным использованием:
@@ -90,7 +90,7 @@ def update_price(prices, campaign_id, access_token):
         access_token (str): Токен для работы с API Яндекс Маркет.
 
     Returns:
-        dict: Возвращает статус ответа
+        dict: Возвращает статус ответа обновления цены.
 
     Example:
         Пример, с корректным использованием:
