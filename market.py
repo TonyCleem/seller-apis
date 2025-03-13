@@ -26,16 +26,8 @@ def get_product_list(page, campaign_id, access_token):
         >>> get_product_list(5, 'campaign_id', 'access_token'):
         "result": {}
         Пример, с некорректным использованием:
-        >>> get_product_list(5, 'campaign_id', 'access_token'):
-        {
-            "status": "OK",
-            "errors": [
-                {
-                    "code": "string",
-                    "message": "string"
-                }
-            ]
-        }
+        >>> get_product_list(5, 'campaign_id', '<invalid_access_token>'):
+        Token Error: Invalid token
     """
     endpoint_url = "https://api.partner.market.yandex.ru/"
     headers = {
@@ -64,25 +56,15 @@ def update_stocks(stocks, campaign_id, access_token):
         access_token (str): Токен для работы с API Яндекс Маркет.
 
     Returns:
-        Возвращает статус ответа в JSON.
+        dict: Возвращает статус ответа
 
     Example:
         Пример, с корректным использованием:
         >>> update_stocks(stocks, 'campaign_id', 'access_token'):
-        {
-        "status": "OK"
-        }
+        {"status": "OK"}
         Пример, с некорректным использованием:
-        >>> update_stocks(stocks, 'campaign_id', 'access_token'):
-        {
-            "status": "OK",
-            "errors": [
-                {
-                    "code": "string",
-                    "message": "string"
-                }
-            ]
-        }
+        >>> update_stocks(stocks, 'invalid_campaign_id', 'access_token'):
+        ID Error: Ivalid campaign id
     """
     endpoint_url = "https://api.partner.market.yandex.ru/"
     headers = {
@@ -108,25 +90,16 @@ def update_price(prices, campaign_id, access_token):
         access_token (str): Токен для работы с API Яндекс Маркет.
 
     Returns:
-        Возвращает статус ответа в JSON.
+        dict: Возвращает статус ответа
 
     Example:
         Пример, с корректным использованием:
         >>> update_price(prices, 'campaign_id', 'access_token'):
-        {
-        "status": "OK"
-        }
+        {"status": "OK"}
         Пример, с некорректным использованием:
         >>> update_price(prices, 'campaign_id', 'access_token'):
-        {
-            "status": "OK",
-            "errors": [
-                {
-                    "code": "string",
-                    "message": "string"
-                }
-            ]
-        }
+        NameError: name 'prices' is not defined
+
     """
     endpoint_url = "https://api.partner.market.yandex.ru/"
     headers = {
@@ -158,11 +131,8 @@ def get_offer_ids(campaign_id, market_token):
         >>> get_offer_ids('campaign_id', 'market_token'):
         ['offer_ids']
         Пример, с некорректным использованием:
-        >>> get_offer_ids('campaign_id', 'market_token'):
-        {
-            "status": "OK",
-            "errors": []
-        }
+        >>> get_offer_ids('campaign_id', '<invalid_market_token>'):
+        Token Error: Invalid token
     """
     page = ""
     product_list = []
@@ -192,19 +162,7 @@ def create_stocks(watch_remnants, offer_ids, warehouse_id):
     Example:
         Пример, с корректным использованием:
         >>> create_stocks(watch_remnants, offer_ids):
-        [
-            {
-                "sku": 'offer_id',
-                "warehouseId": 'warehouse_id',
-                "items": [
-                    {
-                        "count": 0,
-                        "type": "FIT",
-                        "updatedAt": date,
-                    }
-                ],
-            }
-        ]
+        ['item1', 'item2']
         Пример, с некорректным использованием:
         >>> create_stocks(watch_remnants, offer_ids):
         Вызывает ошибку, если один из параметров некорректен.

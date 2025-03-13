@@ -90,19 +90,15 @@ def update_price(prices: list, client_id, seller_token):
         seller_token (str): Токен для работы с API Ozon.
 
     Returns:
-        dict: Возвращает ответ от Ozon API в JSON.
+        dict[list]: Возвращает резутат обновления цен.
 
     Example:
         Пример, с корректным использованием:
         >>> get_product_list(prices, 'client_id', 'seller_token'):
-        {"prices": prices}
+        {'result': ['description']}
         Пример, с некорректным использованием:
-        >>> get_product_list(
-            prices,
-            'invalid_client_id',
-            'invalid_seller_token'
-            ):
-        "code": 0
+        >>> get_product_list(prices, 'client_id', 'seller_token'):
+        {'result': ['ErrorCode']}
     """
     url = "https://api-seller.ozon.ru/v1/product/import/prices"
     headers = {
@@ -124,19 +120,16 @@ def update_stocks(stocks: list, client_id, seller_token):
         seller_token (str): Токен для работы с API Ozon.
 
     Returns:
-        dict: Возвращает ответ от Ozon API в JSON.
+        dict[list]: Возвращает результат обновления цен.
 
     Example:
         Пример, с корректным использованием:
         >>> update_stocks(stocks, 'client_id', 'seller_token'):
-        {"stocks": stocks}
+        {'result': ['description']}
         Пример, с некорректным использованием:
-        >>> update_stocks(
-            stocks,
-            'invalid_client_id',
-            'invalid_seller_token'
-            ):
-        "code": 0
+        >>> update_stocks(stocks, 'client_id', 'seller_token'):
+        Привышено число запросов
+        TOO_MANY_REQUESTS
     """
     url = "https://api-seller.ozon.ru/v1/product/import/stocks"
     headers = {
