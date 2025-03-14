@@ -23,10 +23,10 @@ def get_product_list(page, campaign_id, access_token):
 
     Example:
         Пример, с корректным использованием:
-        >>> get_product_list(5, 'campaign_id', 'access_token'):
+        >>> get_product_list(page, 'campaign_id', 'market_token'):
         "result": {}
         Пример, с некорректным использованием:
-        >>> get_product_list(5, 'campaign_id', '<invalid_access_token>'):
+        >>> get_product_list(page, 'campaign_id', 'market_token'):
         Token Error: Invalid token
     """
     endpoint_url = "https://api.partner.market.yandex.ru/"
@@ -281,7 +281,7 @@ def main():
     watch_remnants = download_stock()
     try:
         # FBS
-        offer_ids = get_offer_ids(campaign_fbs_id, market_token)
+        offer_ids = get_offer_ids(campaign_fbs_id, )
         # Обновить остатки FBS
         stocks = create_stocks(watch_remnants, offer_ids, warehouse_fbs_id)
         for some_stock in list(divide(stocks, 2000)):
