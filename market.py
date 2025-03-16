@@ -23,10 +23,10 @@ def get_product_list(page, campaign_id, access_token):
 
     Example:
         Пример, с корректным использованием:
-        >>> get_product_list(page, 'campaign_id', 'market_token'):
+        >>> get_product_list('page', 'campaign_id', 'market_token'):
         "result": {}
         Пример, с некорректным использованием:
-        >>> get_product_list(page, 'campaign_id', 'market_token'):
+        >>> get_product_list('page', 'campaign_id', 'market_token'):
         Token Error: Invalid token
     """
     endpoint_url = "https://api.partner.market.yandex.ru/"
